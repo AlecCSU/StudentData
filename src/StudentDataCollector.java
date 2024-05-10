@@ -7,30 +7,34 @@ public class StudentDataCollector {
         List<Student> students = new LinkedList<>();
         boolean enteringData = true;
 
-        while (enteringData) {
-            System.out.println("Enter student name (or type 'exit' to finish):");
-            String name = scanner.nextLine();
-            if (name.equalsIgnoreCase("exit")) {
-                break;
-            }
-
-            System.out.println("Enter student address:");
-            String address = scanner.nextLine();
-
-            double GPA = -1;
-            while (GPA < 0 || GPA > 4.0) {
-                System.out.println("Enter student GPA (0.0 to 4.0):");
-                try {
-                    GPA = Double.parseDouble(scanner.nextLine());
-                    if (GPA < 0 || GPA > 4.0) {
-                        System.out.println("Invalid GPA. Please enter a value between 0.0 and 4.0.");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a numeric value.");
+        try {
+            while (enteringData) {
+                System.out.println("Enter student name (or type 'exit' to finish):");
+                String name = scanner.nextLine();
+                if (name.equalsIgnoreCase("exit")) {
+                    break;
                 }
-            }
 
-            students.add(new Student(name, address, GPA));
+                System.out.println("Enter student address:");
+                String address = scanner.nextLine();
+
+                double GPA = -1;
+                while (GPA < 0 || GPA > 4.0) {
+                    System.out.println("Enter student GPA (0.0 to 4.0):");
+                    try {
+                        GPA = Double.parseDouble(scanner.nextLine());
+                        if (GPA < 0 || GPA > 4.0) {
+                            System.out.println("Invalid GPA. Please enter a value between 0.0 and 4.0.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a numeric value.");
+                    }
+                }
+
+                students.add(new Student(name, address, GPA));
+            }
+        } finally {
+            scanner.close();
         }
 
         Collections.sort(students);
